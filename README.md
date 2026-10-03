@@ -278,3 +278,10 @@ The sample was flagged as malicious by 63 out of 70 security vendors. More impor
 ![VirusTotal identifying the ransomware family as BlueSky](screenshots/16-bluesky-family.png)
 
 **Finding:** `BlueSky`
+## Attack Summary
+
+The investigation showed a complete ransomware attack starting from network scanning and SQL Server compromise.
+
+After gaining access, the attacker enabled `xp_cmdshell`, used PowerShell, disabled security controls, established persistence, dumped credentials and used SMB for lateral movement.
+
+The attack ended with the deployment of `javaw.exe`, which was identified as **BlueSky ransomware** and encrypted files using the `.bluesky` extension.
