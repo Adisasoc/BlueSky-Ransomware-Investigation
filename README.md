@@ -19,3 +19,16 @@ Throughout the investigation, I correlated network traffic with Windows events a
 - VirusTotal
 
 ## Investigation
+### Q1 — Identifying the Source IP
+
+> Knowing the source IP of the attack allows security teams to respond to potential threats quickly. Can you identify the source IP responsible for potential port scanning activity?
+
+I started by opening the PCAP file in Wireshark and filtering for TCP SYN packets:
+
+`tcp.flags.syn == 1 && tcp.flags.ack == 0`
+
+The results showed `87.96.21.84` repeatedly sending SYN requests to `87.96.21.81` across multiple destination ports. This pattern identified `87.96.21.84` as the source of the port scanning activity.
+
+![Wireshark showing repeated SYN requests from the source IP](screenshots/01-port-scan.png)
+
+**Finding:** `87.96.21.84`
