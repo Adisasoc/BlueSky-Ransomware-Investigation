@@ -140,3 +140,18 @@ The registry values appeared in this order:
 ![checking.ps1 modifying Windows Defender settings](screenshots/08-defender-disabled.png)
 
 **Finding:** `DisableAntiSpyware, DisableRoutinelyTakingAction, DisableRealtimeMonitoring, SubmitSamplesConsent, SpynetReporting`
+### Q9 — Identifying the Second Downloaded File
+
+> Can you determine the URL of the second file downloaded by the attacker?
+
+I went back to the HTTP requests in Wireshark and looked at the downloads in chronological order.
+
+After `checking.ps1`, the next PowerShell file requested from the attacker's server was `del.ps1`.
+
+The full URL was:
+
+`http://87.96.21.84/del.ps1`
+
+![HTTP traffic showing the download of del.ps1](screenshots/09-del-ps1-download.png)
+
+**Finding:** `http://87.96.21.84/del.ps1`
