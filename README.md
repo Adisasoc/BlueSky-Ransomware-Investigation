@@ -194,3 +194,45 @@ The script was used for credential dumping, allowing the attacker to obtain pass
 ![HTTP request for Invoke-PowerDump.ps1](screenshots/11-invoke-powerdump.png)
 
 **Finding:** `Invoke-PowerDump.ps1`
+### Q13 — Identifying the Credential Dump File
+
+> Understanding which credentials have been compromised is essential for assessing the extent of the data breach. What's the name of the saved text file containing the dumped credentials?
+
+After identifying `Invoke-PowerDump.ps1`, I wanted to see how the dumped credentials were being used later in the attack.
+
+I filtered the HTTP traffic for:
+
+`http contains "Invoke-PowerDump.ps1"`
+
+This showed the related HTTP traffic, including the response containing `ichigo-lite.ps1`.
+
+![PowerDump related HTTP traffic](screenshots/13-powerdump-traffic.png)
+
+I followed the HTTP stream for `ichigo-lite.ps1` to inspect the script itself.
+
+Inside the script, I found it loading `Invoke-PowerDump.ps1` and then reading credential data from:
+
+`C:\ProgramData\hashes.txt`
+
+The script stored the usernames and password hashes into separate arrays, which were later used against other discovered hosts.
+
+![ichigo-lite.ps1 reading hashes.txt](screenshots/13-ichigo-hashes.png)
+
+This confirmed that the dumped credentials had been saved in:
+
+**Finding:** `hashes.txt`
+### Q14 — Identifying the Discovered Hosts File
+
+> Knowing the hosts targeted during the attacker's reconnaissance phase, the security team can prioritize their remediation efforts on these specific hosts. What's the name of the text file containing the discovered hosts?
+
+While reviewing the same `ichigo-lite.ps1` script from the previous step, I noticed it was also pulling a text file from the attacker's server:
+
+`http://87.96.21.84/extracted_hosts.txt`
+
+The content was stored in the `$hostsContent` variable and later used by the script as a list of target hosts.
+
+![ichigo-lite.ps1 retrieving the discovered hosts](screenshots/13-ichigo-hashes.png)
+
+This showed that the file containing the discovered hosts was:
+
+**Finding:** `extracted_hosts.txt`
