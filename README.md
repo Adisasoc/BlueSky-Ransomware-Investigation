@@ -265,3 +265,14 @@ Under **Files Dropped**, I could see files being created with the `.bluesky` ext
 ![VirusTotal behavior showing the BlueSky ransom note](screenshots/15-virustotal-behavior-new.png)
 
 **Finding:** `# DECRYPT FILES BLUESKY #.txt`
+## Q16 — Identifying the Ransomware Family
+
+> In some cases, decryption tools are available for specific ransomware families. Identifying the family name can lead to a potential decryption solution. What's the name of this ransomware family?
+
+After finding the ransom note, I went back to the VirusTotal detection results for the `javaw.exe` sample.
+
+The sample was flagged as malicious by 63 out of 70 security vendors. More importantly, VirusTotal showed `bluesky` under the family labels, and some of the vendor detections also identified the sample as BlueSky ransomware.
+
+![VirusTotal identifying the ransomware family as BlueSky](screenshots/16-bluesky-family.png)
+
+**Finding:** `BlueSky`
