@@ -155,3 +155,18 @@ The full URL was:
 ![HTTP traffic showing the download of del.ps1](screenshots/09-del-ps1-download.png)
 
 **Finding:** `http://87.96.21.84/del.ps1`
+### Q10 — Establishing Persistence
+
+> Identifying malicious tasks and understanding how they were used for persistence helps in fortifying defenses against future attacks. What's the full name of the task created by the attacker to maintain persistence?
+
+Looking further into the script, I found that the attacker downloaded `del.ps1` to `C:\ProgramData\del.ps1` and then created a scheduled task to keep it running.
+
+The task was created as `SYSTEM` and configured to run the PowerShell script every four hours.
+
+The full task name was:
+
+`\Microsoft\Windows\MUI\LPupdate`
+
+![Scheduled task created by the attacker for persistence](screenshots/10-scheduled-task.png)
+
+**Finding:** `\Microsoft\Windows\MUI\LPupdate`
