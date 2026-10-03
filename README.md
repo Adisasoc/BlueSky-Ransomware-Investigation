@@ -121,3 +121,22 @@ This SID belongs to the Windows built-in **Administrators** group, so the script
 ![checking.ps1 checking for the Administrators group SID](screenshots/07-admin-sid-check.png)
 
 **Finding:** `S-1-5-32-544`
+### Q8 — Disabling Windows Defender
+
+> Windows Defender plays a critical role in defending against cyber threats. If an attacker disables it, the system becomes more vulnerable to further attacks. What are the registry keys used by the attacker to disable Windows Defender functionalities? Provide them in the same order found.
+
+I continued reviewing `checking.ps1` and found a section specifically targeting Windows Defender.
+
+The script modified several values under the Windows Defender registry path and also attempted to stop and disable the `WinDefend` service.
+
+The registry values appeared in this order:
+
+1. `DisableAntiSpyware`
+2. `DisableRoutinelyTakingAction`
+3. `DisableRealtimeMonitoring`
+4. `SubmitSamplesConsent`
+5. `SpynetReporting`
+
+![checking.ps1 modifying Windows Defender settings](screenshots/08-defender-disabled.png)
+
+**Finding:** `DisableAntiSpyware, DisableRoutinelyTakingAction, DisableRealtimeMonitoring, SubmitSamplesConsent, SpynetReporting`
