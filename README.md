@@ -61,3 +61,18 @@ Looking at the TDS7 Login Packet showed the `sa` account authenticating to `87.9
 ![TDS7 login packet showing the SQL credentials](screenshots/03-tds-login.png)
 
 **Finding:** `cyb3rd3f3nd3r$`
+### Q4 — Enabling Command Execution
+
+> Attackers often change some settings to facilitate lateral movement within a network. What setting did the attacker enable to control the target host further and execute further commands?
+
+After confirming the SQL access, I followed the same traffic using **Follow TCP Stream** to see what the attacker did after logging in.
+
+In the stream, I found commands being used to enable `xp_cmdshell`. The SQL Server response confirmed the change:
+
+`Configuration option 'xp_cmdshell' changed from 0 to 1`
+
+With `xp_cmdshell` enabled, commands could be executed on the Windows host through SQL Server.
+
+![TCP stream showing xp_cmdshell being enabled](screenshots/04-xp-cmdshell.png)
+
+**Finding:** `xp_cmdshell`
