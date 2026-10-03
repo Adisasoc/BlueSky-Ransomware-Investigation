@@ -236,3 +236,32 @@ The content was stored in the `$hostsContent` variable and later used by the scr
 This showed that the file containing the discovered hosts was:
 
 **Finding:** `extracted_hosts.txt`
+### Q15 — Analysing the Ransomware Sample
+
+> After hash dumping, the attacker attempted to deploy ransomware on the compromised host, spreading it to the rest of the network through previous lateral movement activities using SMB. You’re provided with the ransomware sample for further analysis. By performing behavioral analysis, what’s the name of the ransom note file?
+
+After following the credential dumping and lateral movement activity, I went back to the PCAP to look at the files transferred during the attack.
+
+In Wireshark, I used **File → Export Objects → HTTP**. Among the downloaded files, I found an executable called `javaw.exe` being transferred from `87.96.21.84`.
+
+![HTTP objects showing javaw.exe](screenshots/15-javaw-export.png)
+
+Rather than running the executable, I exported it and calculated its SHA-256 hash using PowerShell:
+
+`Get-FileHash .\javaw.exe -Algorithm SHA256`
+
+This gave me:
+
+`3E035F2D7D30869CE53171EF5A0F761BFB9C14D94D9FE6DA385E20B8D96DC2FB`
+
+![SHA256 hash of javaw.exe](screenshots/15-javaw-sha256.png)
+
+I searched the hash on VirusTotal and checked the **Behavior** results.
+
+Under **Files Dropped**, I could see files being created with the `.bluesky` extension, along with the ransom note:
+
+`# DECRYPT FILES BLUESKY #.txt`
+
+![VirusTotal behavior showing the BlueSky ransom note](screenshots/15-virustotal-behavior.png)
+
+**Finding:** `# DECRYPT FILES BLUESKY #.txt`
