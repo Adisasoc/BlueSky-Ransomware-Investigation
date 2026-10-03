@@ -76,3 +76,16 @@ With `xp_cmdshell` enabled, commands could be executed on the Windows host throu
 ![TCP stream showing xp_cmdshell being enabled](screenshots/04-xp-cmdshell.png)
 
 **Finding:** `xp_cmdshell`
+### Q5 — Identifying the Process Used for C2 Injection
+
+> Process injection is often used by attackers to escalate privileges within a system. What process did the attacker inject the C2 into to gain administrative privileges?
+
+At this point, I moved back to the Windows Event Logs and searched through the PowerShell activity.
+
+I found PowerShell Event ID `400`, where the event details showed `MSFConsole` as the host and `winlogon.exe` as the `HostApplication`.
+
+This linked `winlogon.exe` to the attacker's C2 activity.
+
+![PowerShell Event ID 400 showing winlogon.exe](screenshots/05-winlogon-injection.png)
+
+**Finding:** `winlogon.exe`
