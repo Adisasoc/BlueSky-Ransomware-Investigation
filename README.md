@@ -262,6 +262,6 @@ Under **Files Dropped**, I could see files being created with the `.bluesky` ext
 
 `# DECRYPT FILES BLUESKY #.txt`
 
-![VirusTotal behavior showing the BlueSky ransom note](screenshots/15-virustotal-behavior.png)
+![VirusTotal behavior showing the BlueSky ransom note](screenshots/15-virustotal-behavior-new.png)
 
 **Finding:** `# DECRYPT FILES BLUESKY #.txt`
