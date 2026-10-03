@@ -46,3 +46,18 @@ This connected the network activity I saw in Wireshark with the authentication a
 ![Windows Event Viewer showing the failed MSSQL login](screenshots/02-mssql-failed-login.png)
 
 **Finding:** `sa`
+### Q3 — Confirming Successful Access
+
+> We need to determine if the attacker succeeded in gaining access. Can you provide the correct password discovered by the attacker?
+
+After seeing the failed login attempts against the `sa` account, I went back to the PCAP to check the SQL login traffic.
+
+I filtered for TDS login packets using:
+
+`tds.type == 0x10`
+
+Looking at the TDS7 Login Packet showed the `sa` account authenticating to `87.96.21.81`, along with the password used for the login.
+
+![TDS7 login packet showing the SQL credentials](screenshots/03-tds-login.png)
+
+**Finding:** `cyb3rd3f3nd3r$`
