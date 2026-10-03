@@ -1,8 +1,6 @@
-# BlueSky-Ransomware-Investigation
-Investigation of a BlueSky ransomware attack using Wireshark, Windows Event Viewer, PowerShell and VirusTotal.
-
 # BlueSky Ransomware Investigation
 
+Investigation of a BlueSky ransomware attack using Wireshark, Windows Event Viewer, PowerShell and VirusTotal.
 ## Overview
 
 In this investigation, I analysed a BlueSky ransomware attack using a PCAP file and Windows Event Logs provided by CyberDefenders.
