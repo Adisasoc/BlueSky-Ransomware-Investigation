@@ -32,3 +32,17 @@ The results showed `87.96.21.84` repeatedly sending SYN requests to `87.96.21.81
 ![Wireshark showing repeated SYN requests from the source IP](screenshots/01-port-scan.png)
 
 **Finding:** `87.96.21.84`
+
+### Q2 — Identifying the Targeted Account
+
+> During the investigation, it's essential to determine the account targeted by the attacker. Can you identify the targeted account username?
+
+After identifying `87.96.21.84` as the source of the scanning activity, I moved to Windows Event Viewer to see if the same IP appeared in the host logs.
+
+I searched for `87.96.21.84` and found an MSSQLSERVER Event ID `18456`. The event showed a failed SQL Server login from the same IP, with the username `sa` and the reason stating that the password did not match.
+
+This connected the network activity I saw in Wireshark with the authentication activity on the SQL Server.
+
+![Windows Event Viewer showing the failed MSSQL login](screenshots/02-mssql-failed-login.png)
+
+**Finding:** `sa`
