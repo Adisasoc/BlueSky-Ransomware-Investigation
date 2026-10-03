@@ -170,3 +170,14 @@ The full task name was:
 ![Scheduled task created by the attacker for persistence](screenshots/10-scheduled-task.png)
 
 **Finding:** `\Microsoft\Windows\MUI\LPupdate`
+### Q11 — Mapping the Activity to MITRE ATT&CK
+
+> Based on your analysis of the second malicious file, What is the MITRE ID of the main tactic the second file tries to accomplish?
+
+Looking at the behaviour of `del.ps1`, the main activity was focused on weakening the host's security controls.
+
+The script modified Windows Defender settings, stopped the `WinDefend` service and also targeted other security products. This activity falls under the **Defense Evasion** tactic in MITRE ATT&CK.
+
+The relevant evidence can be seen in the Defender activity shown in Q8.
+
+**Finding:** Defense Evasion — `TA0005`
