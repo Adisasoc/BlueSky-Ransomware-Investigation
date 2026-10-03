@@ -89,3 +89,20 @@ This linked `winlogon.exe` to the attacker's C2 activity.
 ![PowerShell Event ID 400 showing winlogon.exe](screenshots/05-winlogon-injection.png)
 
 **Finding:** `winlogon.exe`
+### Q6 — Identifying the Downloaded File
+
+> Following privilege escalation, the attacker attempted to download a file. Can you identify the URL of this file downloaded?
+
+I went back to the network traffic and filtered for HTTP requests:
+
+`http.request`
+
+Looking through the requests from the compromised host, I found a GET request to `87.96.21.84` for a PowerShell script called `checking.ps1`.
+
+The full request URI was:
+
+`http://87.96.21.84/checking.ps1`
+
+![HTTP request showing checking.ps1 being downloaded](screenshots/06-checking-ps1-download.png)
+
+**Finding:** `http://87.96.21.84/checking.ps1`
