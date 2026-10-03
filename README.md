@@ -285,3 +285,19 @@ The investigation showed a complete ransomware attack starting from network scan
 After gaining access, the attacker enabled `xp_cmdshell`, used PowerShell, disabled security controls, established persistence, dumped credentials and used SMB for lateral movement.
 
 The attack ended with the deployment of `javaw.exe`, which was identified as **BlueSky ransomware** and encrypted files using the `.bluesky` extension.
+## Key IOCs
+
+| Type | Indicator |
+|---|---|
+| Attacker IP | `87.96.21.84` |
+| Target IP | `87.96.21.81` |
+| Malicious Scripts | `checking.ps1`, `del.ps1`, `Invoke-PowerDump.ps1`, `Invoke-SMBExec.ps1` |
+| Ransomware Payload | `javaw.exe` |
+| SHA-256 | `3E035F2D7D30869CE53171EF5A0F761BFB9C14D94D9FE6DA385E20B8D96DC2FB` |
+| Encrypted Extension | `.bluesky` |
+| Ransom Note | `# DECRYPT FILES BLUESKY #.txt` |
+## Conclusion
+
+This investigation helped me practise following an attack across both network and host-based evidence, rather than looking at each event separately.
+
+The main takeaway for me was seeing how the different stages connected, from the initial SQL Server compromise through PowerShell activity, persistence and credential dumping to lateral movement and the final ransomware deployment.
