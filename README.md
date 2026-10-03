@@ -106,3 +106,18 @@ The full request URI was:
 ![HTTP request showing checking.ps1 being downloaded](screenshots/06-checking-ps1-download.png)
 
 **Finding:** `http://87.96.21.84/checking.ps1`
+### Q7 — Checking the User's Privileges
+
+> Understanding which group Security Identifier (SID) the malicious script checks to verify the current user's privileges can provide insights into the attacker's intentions. Can you provide the specific Group SID that is being checked?
+
+After finding `checking.ps1`, I followed the stream to look at what the script was actually doing.
+
+Near the beginning of the script, I found a privilege check against the SID:
+
+`S-1-5-32-544`
+
+This SID belongs to the Windows built-in **Administrators** group, so the script was checking whether it was running with administrative privileges.
+
+![checking.ps1 checking for the Administrators group SID](screenshots/07-admin-sid-check.png)
+
+**Finding:** `S-1-5-32-544`
