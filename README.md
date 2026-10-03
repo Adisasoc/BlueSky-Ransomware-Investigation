@@ -181,3 +181,16 @@ The script modified Windows Defender settings, stopped the `WinDefend` service a
 The relevant evidence can be seen in the Defender activity shown in Q8.
 
 **Finding:** Defense Evasion — `TA0005`
+### Q12 — Identifying the Credential Dumping Script
+
+> What's the invoked PowerShell script used by the attacker for dumping credentials?
+
+Continuing through the HTTP traffic, I found another PowerShell script being pulled from the attacker's server:
+
+`Invoke-PowerDump.ps1`
+
+The script was used for credential dumping, allowing the attacker to obtain password hashes from the compromised system.
+
+![HTTP request for Invoke-PowerDump.ps1](screenshots/11-invoke-powerdump.png)
+
+**Finding:** `Invoke-PowerDump.ps1`
