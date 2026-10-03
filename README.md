@@ -170,17 +170,19 @@ The full task name was:
 ![Scheduled task created by the attacker for persistence](screenshots/10-scheduled-task.png)
 
 **Finding:** `\Microsoft\Windows\MUI\LPupdate`
-### Q11 — Mapping the Activity to MITRE ATT&CK
+## Q11 — Mapping the Second Malicious File to MITRE ATT&CK
 
 > Based on your analysis of the second malicious file, What is the MITRE ID of the main tactic the second file tries to accomplish?
 
-Looking at the behaviour of `del.ps1`, the main activity was focused on weakening the host's security controls.
+Looking further into the behavior of the script, I noticed that a large part of it was focused on weakening the security controls on the machine.
 
-The script modified Windows Defender settings, stopped the `WinDefend` service and also targeted other security products. This activity falls under the **Defense Evasion** tactic in MITRE ATT&CK.
+It attempted to stop Windows Defender and change its startup type to disabled. It also targeted other security products, including Malwarebytes and Sophos.
 
-The relevant evidence can be seen in the Defender activity shown in Q8.
+![PowerShell script attempting to disable security services](screenshots/11-defense-evasion.png)
 
-**Finding:** Defense Evasion — `TA0005`
+Because the main purpose of these actions was to avoid or weaken security controls, I mapped this activity to the MITRE ATT&CK **Defense Evasion** tactic.
+
+**Finding:** `TA0005 — Defense Evasion`
 ### Q12 — Identifying the Credential Dumping Script
 
 > What's the invoked PowerShell script used by the attacker for dumping credentials?
